@@ -1,4 +1,4 @@
-SSH = 'ssh -a -i -/git/sjwrong/sjwrong.pem -l root'
+SSH = 'ssh -a -i ~/git/sjwrong/sjwrong.pem -l root'
 
 desc "Run Puppet on ENV['CLIENT']"
 task :apply do
