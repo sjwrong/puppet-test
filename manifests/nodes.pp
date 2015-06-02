@@ -1,6 +1,3 @@
-node  'cookbook' {
-	include puppet
-}
-node 'ubuntu' {
+node  'test10' {
 	include puppet
 }
