@@ -1,0 +1,3 @@
+node 'test10' {
+ require apache::vhost { 'example.com': }
+}
