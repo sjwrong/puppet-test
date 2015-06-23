@@ -1,0 +1,22 @@
+class user::virtual {
+ define ssh_user($key) {
+  user { $name:
+   ensure     => present,
+   managehome => true,
+  } 
+  file { "/home/${name}/.ssh":
+   ensure => directory,
+   mode   => '700',
+   owner  => $name,
+  }
+  ssh_authorized_key { 'user':
+   key     => $key,
+   type    => 'ssh-rsa',
+   user    => $name,
+   require => File["/home/${name}/.ssh"],
+  }
+}
+ @ssh_user { 'test1':
+  key => 'AAAAB3NzaC1yc2EAAAADAQABAAACAQDZZppBw8eyMGjT8tmwwIpE/t/QBSbEfvAR09L9z66GLs11yJM9i8r54T8dVj21/VLGE2ueNdLBcJA090FgsVc4QN/DgyrJnxC+Ds/g1Kt4uy6n6q9O3Elfq8PvjRp5SeWpPqtnIDrbi69GRdxmw8zZzz+RmK0Azsz+fS7wVk6y9iArVStRW3f2t0PLGTgU2W/GP9VD8VIUiMyHkkvUj8eF4q58e8PsqizLWK7hLknKgO6erCyQ0UdY+hHxnqkXFMGhSK47xuHzoote2mmj7U4ujsvFK2BGj1hJ8VBlkU2g7J02mMUE7J6kxP7J6gNMdLO/HF87+KjGkh/ghK62+0uBVUfWfkP4wwB2OiRIbRZCujWAnR7fRgNzIPpd7i4VJbSNT/JrrEPhzdO9jW5YWIxJD4TYJAJUKWM2uKzpB8CY2sFdvH4KMu8kzugKpstB3QFDxmh82dP4nM/a8cZu/gvkJ52QQsQ8kpi9eSYRtRqr47rR7BGnuDN3LevV3BsuHPI6b4xMr6lQmACYeHMv2MCNQM3mP5WE+41xCLFuo3rj6DWkUFd4dlg4zJpVjkIKLQMw+dsyWMZKSYCoT/8gm0NmuIM1xOfL41aTSejpOJQwGI539YIyp5En5xbPgH41P1qBh57yd0f3AC4FTYKP2jVNeER1KKNnbL+NH86KypZrtw==',
+ }
+}
